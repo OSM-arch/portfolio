@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@layer components {
+
+    .homeContainer {
+        @apply flex flex-col-reverse md:flex-row justify-between items-center gap-6 md:gap-12;
+    }
+
+    .homeText {
+        @apply w-full md:w-1/2 flex flex-col justify-center gap-4;
+        font-size: 1rem;
+    }
+
+    .homeText .button {
+        @apply w-fit border border-[#03045E] rounded px-6 py-3 shadow-md;
+        box-shadow: 10px 10px 10px #F5EE84;
+    }
+
+    .homeText .button a {
+        @apply text-[#474306] text-base md:text-lg;
+    }
+
+    .homeText span {
+        display: block;
+    }
+
+    .homeText .span1,
+    .homeText .span3 {
+        @apply text-xl md:text-2xl font-medium;
+    }
+
+    .homeText .span2 {
+        @apply text-2xl md:text-4xl font-extrabold;
+    }
+
+    .imageContainer {
+        @apply w-full md:w-1/2 flex justify-center md:justify-end mb-4 md:mb-0;
+    }
+
+    .imageContainer img {
+        @apply w-60 sm:w-48 md:w-66 lg:w-74 h-auto rounded-full object-cover;
+    }
+}

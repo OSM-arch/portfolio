@@ -1,0 +1,1 @@
+export const work_Selector = ({adminObj}) => adminObj.projects;

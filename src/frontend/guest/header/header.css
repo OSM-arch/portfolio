@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@layer components {
+    header {
+        @apply flex flex-row justify-between items-center md:items-center md:justify-between gap-3 p-2;
+    }
+}

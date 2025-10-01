@@ -1,0 +1,1 @@
+export const home_Selector = ({adminObj}) => adminObj.home;

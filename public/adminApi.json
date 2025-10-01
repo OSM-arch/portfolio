@@ -1,0 +1,22 @@
+{
+    "fullname": "Oussama El Mohtadi",
+    "basedIn" : "Morroco",
+    "about"   : {
+        "aboutMe"   : ".............................",
+        "education" : [
+            {
+                "date" : "2014-2018", 
+                "details" : "..............."
+            }
+        ]
+    },
+    "projects"    : [
+        {
+            "image" : ".....", 
+            "jobTitle" : ".......", 
+            "jobDetails": "", 
+            "date" : "2014-2018", 
+            "details" : "..............."
+        }
+    ]
+}

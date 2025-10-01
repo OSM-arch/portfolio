@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@layer components {
+    nav ul, .contact {
+        @apply flex flex-row justify-between gap-6;
+    }
+
+    .name {
+        font-weight: 600;
+        font-size: 24px;
+    }
+}

@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@layer components {
+    .aboutContainer {
+        margin-top: 100px;
+    }
+
+    .title {
+        color: #F7F197;
+        font-weight: 800;
+        font-size: 100px;
+        line-height: 116%;
+        @apply text-3xl sm:text-4xl md:text-5xl lg:text-[100px];
+    }
+
+    .paragraph {
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 44px;
+        margin: 50px 0;
+        @apply w-full md:w-4/5;
+        @apply text-base sm:text-lg md:text-xl lg:text-[24px];
+    }
+
+    .listContainer {
+        margin-left: 100px;
+        @apply ml-0 md:ml-8;
+    }
+
+    .list {
+        list-style-type: disc;
+    }
+
+    .list li {
+        margin-bottom: 50px;
+        @apply mb-6 sm:mb-8 md:mb-10 lg:mb-12;
+    }
+
+    .listTitle {
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 40px;
+        @apply text-lg sm:text-xl md:text-2xl lg:text-[24px];
+    }
+
+    .listText {
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 40px;
+        @apply text-base sm:text-lg md:text-xl lg:text-[24px];
+    }
+}

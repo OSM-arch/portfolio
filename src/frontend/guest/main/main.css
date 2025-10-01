@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@layer components {
+    main {
+        margin-top: 100px;
+    }
+}

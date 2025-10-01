@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@layer components {
+    .workContainer {
+        margin-top: 100px;
+    }
+
+    .title {
+        color: #F7F197;
+        font-weight: 800;
+        font-size: 100px;
+        line-height: 116%;
+        @apply text-3xl sm:text-4xl md:text-5xl lg:text-[100px];
+    }
+
+    .cardsContainter {
+        @apply flex flex-col md:flex-row flex-wrap justify-between gap-6 md:gap-8;
+    }
+
+    .card {
+        max-width: 100%;
+        width: fit-content;
+        padding: 20px;
+        @apply flex flex-col flex-nowrap md:w-5/12;
+    }
+
+    .cardImage {
+        max-width: 100%;
+        height: auto;
+        box-sizing: border-box;
+        border-radius: 5px;
+        transition: 0.5s ease-out;
+    }
+
+    .cardImage:hover {
+        scale: 1.05;
+    }
+
+    .date {
+        margin-bottom: 25px;
+        font-size: 15px;
+        font-weight: 400;
+        font-style: italic;
+        line-height: 44px;
+        @apply italic;
+    }
+
+    .cardTitle {
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 44px;
+        @apply text-lg sm:text-xl md:text-2xl lg:text-[24px] py-2;
+    }
+
+    .cardParagraph {
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 32px;
+        @apply text-base sm:text-lg md:text-xl lg:text-[18px];
+    }
+}
