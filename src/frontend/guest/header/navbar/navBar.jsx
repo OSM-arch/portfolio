@@ -2,6 +2,7 @@ import './navBar.css';
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faDownload} from "@fortawesome/free-solid-svg-icons/faDownload";
 
 export default function NavBar() {
     return (
@@ -23,9 +24,9 @@ export default function NavBar() {
 
                 {/* Contact */}
                 <div className="contact flex justify-center md:justify-end gap-6">
-                    <a href="https://mail.google.com" target="_blank"><FontAwesomeIcon icon={faEnvelope} size="lg" /></a>
-                    <a href="https://github.com/" target="_blank"><FontAwesomeIcon icon={faGithub} size="lg" /></a>
-                    <a href="https://www.linkedin.com" target="_blank"><FontAwesomeIcon icon={faLinkedin} size="lg" /></a>
+                    <a href="public/CV.pdf" download><FontAwesomeIcon icon={faDownload} size="lg" /></a>
+                    <a href="https://github.com/OSM-arch" target="_blank"><FontAwesomeIcon icon={faGithub} size="lg" /></a>
+                    <a href="www.linkedin.com/in/oussama-e-38057030b" target="_blank"><FontAwesomeIcon icon={faLinkedin} size="lg" /></a>
                 </div>
             </div>
         </>
