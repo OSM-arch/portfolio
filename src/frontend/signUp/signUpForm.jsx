@@ -78,7 +78,7 @@ export default function SignUp() {
     return (
         <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                <img src="src/assets/me.jpg"
+                <img src="../../../public/me.jpg"
                      alt="personel image" className="mx-auto h-50 w-auto rounded-full"/>
                 <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight">Sign in to Admin Section</h2>
             </div>
