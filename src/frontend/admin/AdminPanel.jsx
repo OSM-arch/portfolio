@@ -2,6 +2,8 @@ import { useState } from "react";
 import Sidebar from "./components/sidebar.jsx";
 import PersonalInfoForm from "./components/personalInfo.jsx";
 import ProjectsForm from "./components/projectsForm.jsx";
+import App from "../guest/App.jsx";
+import AboutForm from "./components/aboutForm.jsx";
 
 export default function AdminPanel() {
     const [selected, setSelected] = useState("Personal");
@@ -9,7 +11,7 @@ export default function AdminPanel() {
     const items = {
         Personal: <PersonalInfoForm />,
         Projects: <ProjectsForm />,
-        About: <div className="p-4 bg-white rounded shadow">About Content</div>,
+        About: <AboutForm />,
         Contact: <div className="p-4 bg-white rounded shadow">Contact Content</div>,
     };
 

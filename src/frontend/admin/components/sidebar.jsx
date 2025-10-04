@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
+import {useNavigate} from "react-router-dom";
 
 export default function Sidebar({ selected, setSelected }) {
+
+    const naviget = useNavigate();
+
     const [isOpen, setIsOpen] = useState(false);
     const menuItems = ["Personal", "Projects", "About", "Contact"];
 
@@ -23,7 +27,7 @@ export default function Sidebar({ selected, setSelected }) {
           lg:translate-x-0
         `}
             >
-                <h1 className="text-2xl font-bold mb-6 hidden lg:block">Admin Panel</h1>
+                <h1 className="text-2xl font-bold mb-6 hidden lg:block">Control Panel</h1>
                 <nav className="flex flex-col gap-2">
                     {menuItems.map((item) => (
                         <button
@@ -39,6 +43,14 @@ export default function Sidebar({ selected, setSelected }) {
                             {item}
                         </button>
                     ))}
+                    <button
+                        className={`p-2 rounded w-full text-left hover:bg-gray-700`}
+                        onClick={() => {
+                            naviget("/guest");
+                        }}
+                    >
+                        Portfolio
+                    </button>
                 </nav>
             </div>
         </>

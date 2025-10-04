@@ -5,14 +5,6 @@ export default function ProjectsForm() {
     const [fetchProjects, setFetchProjects] = useState(null);
     const [selectedProject, setSelectedProject] = useState({});
     const [selectedId, setSelectedId] = useState("");
-
-    const [title, setTitle] = useState("");
-    const [date, setDate] = useState("");
-    const [description, setDescription] = useState("");
-    const [image, setImage] = useState("");
-    const [url, setUrl] = useState("");
-    const [github, setGithub] = useState("");
-
     const [inputError, setInputError] = useState({
         titleError: "", dateError: "", descriptionError: "", imageError: "", githubError: ""
     });
@@ -30,7 +22,6 @@ export default function ProjectsForm() {
     // Get data
     useEffect(() => {
         var url = "http://localhost/portfolio/getProjects.php";
-
         fetch(url)
         .then((response) => response.json())
         .then((data) => setFetchProjects(data))
@@ -69,93 +60,81 @@ export default function ProjectsForm() {
         });
         setMsg("");
 
-        setTitle(titleRef.current.value);
-        if (titleRef.current.value.length === 0) {
+
+        const formData = new FormData();
+        const title = titleRef.current.value;
+        const date  = dateRef.current.value;
+        const description = descriptionRef.current.value;
+        const image = imageRef.current.files[0];
+        const url = urlRef.current.value;
+        const github = githubRef.current.value;
+
+
+        if (title.length === 0) {
             setInputError(prevState => ({
                 ...prevState,
                 titleError: "Title Required"
             }))
+        }else {
+            formData.append('title', title);
         }
 
-        setDate(dateRef.current.value);
-        if (dateRef.current.value.length === 0) {
+        if (date.length === 0) {
             setInputError(prevState => ({
                 ...prevState,
                 dateError: "Date Required"
             }))
+        }else {
+            formData.append('date', date);
         }
 
-        setDescription(descriptionRef.current.value);
-        if (descriptionRef.current.value.length === 0) {
+        if (description.length === 0) {
             setInputError(prevState => ({
                 ...prevState,
                 descriptionError: "Description Required"
             }))
+        }else {
+            formData.append('description', description);
         }
 
-        setImage(imageRef.current.value);
-        if (imageRef.current.value.length === 0) {
+        if (image.length === 0) {
             setInputError(prevState => ({
                 ...prevState,
                 imageError: "Image Required"
             }))
+        }else {
+            formData.append('image', image);
         }
 
-        setUrl(urlRef.current.value);
+        formData.append('url', url);
 
-        setGithub(githubRef.current.value);
-        if (githubRef.current.value.length === 0) {
+        if (github.length === 0) {
             setInputError(prevState => ({
                 ...prevState,
                 githubError: "GitHub Repository Required"
             }))
+        }else {
+            formData.append('github', github);
         }
 
         if (title !== "" && date !== "" && description !== "" && image !== "" && github !== "") {
-            var headers = {
-                "Accept" : "application/json",
-                "Content-type" :  "application/json"
-            };
-            var data = {
-                title: title,
-                date: date,
-                description: description,
-                image: image,
-                url: url,
-                github: github
-            };
             var link = "";
             const type = buttonRef.current.textContent;
+            formData.append('type', type);
 
             switch (type) {
-                case "Add": link = "http://localhost/portfolio/insertProject.php";break;
-                case "Update": link = `http://localhost/portfolio/updateProject.php?id=${selectedId}`;break;
+                case "Add": link = "http://localhost/portfolio/inproject.php";break;
+                case "Update": link = `http://localhost/portfolio/inproject.php?id=${selectedId}`;break;
             }
 
-            if (link !== "" && type === "Add") {
+            if (link !== "") {
                 fetch(link, {
                     method: "POST",
-                    headers: headers,
-                    body: JSON.stringify(data)
+                    body: formData
                 })
                     .then((response) => response.json())
                     .then((response) => {
-                        setMsg(response[0].result)
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            }
-
-            if (link !== "" && type === "Update") {
-                fetch(link, {
-                    method: "POST",
-                    headers: headers,
-                    body: JSON.stringify(data)
-                })
-                    .then((response) => response.json())
-                    .then((response) => {
-                        setMsg(response[0].result)
+                        setMsg(response[0])
                     })
                     .catch(err => {
                         console.log(err);
@@ -171,7 +150,8 @@ export default function ProjectsForm() {
     return (
         <div className="p-6">
             <h2 className="text-2xl font-bold mb-4">Projects</h2>
-            <div className='text-green-500 m-0 p-0 font-semibold text-sm italic'>{msg}</div>
+            <div className='text-green-500 m-0 p-0 font-semibold text-sm italic'>{msg.result}</div>
+            <div className='text-red-500 m-0 p-0 font-semibold text-sm italic'>{msg.error}</div>
 
             <div className="flex flex-col gap-4">
 
@@ -265,7 +245,7 @@ export default function ProjectsForm() {
                         ref={buttonRef}
                         onClick={handleSubmit}
                         type="submit"
-                        className="bg-blue-950 text-white py-2 rounded hover:bg-blue-800"
+                        className="bg-blue-950 text-white py-2 rounded hover:bg-blue-800 cursor-pointer"
                     >
                         {selectedId === "" ? "Add" : "Update"}
                     </button>

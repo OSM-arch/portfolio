@@ -4,8 +4,6 @@ import {useRef, useState} from "react";
 export default function SignUp() {
     const naviget = useNavigate();
 
-    const [admin, setAdmin] = useState("");
-    const [pwd, setPwd] = useState("");
     const [inputError, setInputError] = useState({
         emailError: "", pwdError: ""
     });
@@ -24,37 +22,34 @@ export default function SignUp() {
         setError("");
         setMsg("");
 
-        setAdmin(emailRef.current.value);
-        if (emailRef.current.value.length === 0) {
+        const formData = new FormData();
+        const admin = emailRef.current.value;
+        const pwd   = pwdRef.current.value;
+
+        if (admin.length === 0) {
             setInputError(prevState => ({
                     ...prevState,
                     emailError: "Email Required"
             }))
+        }else {
+            formData.append("admin", admin);
         }
 
-        setPwd(pwdRef.current.value);
-        if (pwdRef.current.value.length === 0) {
+        if (pwd.length === 0) {
             setInputError(prevState => ({
                 ...prevState,
                 pwdError: "Password Required"
             }))
+        }else {
+            formData.append("pwd", pwd);
         }
 
         if (admin !== "" && pwd !== "") {
             var url = "http://localhost/portfolio/login.php";
-            var headers = {
-                "Accept" : "application/json",
-                "Content-type" :  "application/json"
-            };
-            var data = {
-                admin: admin,
-                pwd  : pwd
-            };
 
             fetch(url, {
                 method: "POST",
-                headers: headers,
-                body: JSON.stringify(data)
+                body: formData
             })
             .then((response) => response.json())
             .then((response) => {
@@ -68,7 +63,6 @@ export default function SignUp() {
                 }
             })
             .catch(err => {
-                setError(err);
                 console.log(err);
             });
         }
@@ -78,9 +72,9 @@ export default function SignUp() {
     return (
         <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                <img src="../../../public/me.jpg"
+                <img src="public/me.jpg"
                      alt="personel image" className="mx-auto h-50 w-auto rounded-full"/>
-                <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight">Sign in to Admin Section</h2>
+                <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight">Sign in</h2>
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm space-y-6">

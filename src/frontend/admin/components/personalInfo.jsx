@@ -2,17 +2,10 @@ import {useEffect, useRef, useState} from "react";
 
 export default function PersonalInfoForm() {
 
-    const [fullname, setFullname] = useState("");
-    const [dob, setDob] = useState(""); // date of birth
-    const [nationality, setNationality] = useState("");
-    const [photo, setPhoto] = useState("");
-    const [cv, setCv] = useState("");
-
     const [inputError, setInputError] = useState({
         fullnameError: "", dobError: "", nationalityError: "", photoError: "", cvError: ""
     });
     const [msg, setMsg] = useState("");
-
     const [fetchData, setFetchData] = useState(null);
 
     const fullnameRef = useRef(null);
@@ -41,68 +34,71 @@ export default function PersonalInfoForm() {
         });
         setMsg("");
 
-        setFullname(fullnameRef.current.value);
-        if (fullnameRef.current.value.length === 0) {
+        const formData = new FormData();
+
+        const fullname = fullnameRef.current.value;
+        const dob = dobRef.current.value;
+        const nationality = nationalityRef.current.value;
+        const photo = photoRef.current.files[0];
+        const cv = cvRef.current.files[0];
+
+        if (fullname.length === 0) {
             setInputError(prevState => ({
                 ...prevState,
                 fullnameError: "Fullname Required"
             }))
+        }else {
+            formData.append('fullname', fullname);
         }
 
-        setDob(dobRef.current.value);
-        if (dobRef.current.value.length === 0) {
+        if (dob.length === 0) {
             setInputError(prevState => ({
                 ...prevState,
                 dobError: "Date of birth Required"
             }))
+        }else {
+            formData.append('dob', dob);
         }
 
-        setNationality(nationalityRef.current.value);
-        if (nationalityRef.current.value.length === 0) {
+        if (nationality.length === 0) {
             setInputError(prevState => ({
                 ...prevState,
                 nationalityError: "Nationality Required"
             }))
+        }else {
+            formData.append('nationality', nationality);
         }
 
-        setPhoto(photoRef.current.value);
-        if (photoRef.current.value.length === 0) {
+
+        if (photo.length === 0) {
             setInputError(prevState => ({
                 ...prevState,
                 photoError: "Photo Required"
             }))
+        }else {
+            formData.append('photo', photo);
         }
 
-        setCv(cvRef.current.value);
-        if (cvRef.current.value.length === 0) {
+
+        if (cv.length === 0) {
             setInputError(prevState => ({
                 ...prevState,
                 cvError: "Cv Required"
             }))
+        }else {
+            formData.append('cv', cv);
         }
 
         if (fullname !== "" && dob !== "" && nationality !== "" && photo !== "" && cv !== "") {
             var url = "http://localhost/portfolio/setUser.php";
-            var headers = {
-                "Accept" : "application/json",
-                "Content-type" :  "application/json"
-            };
-            var data = {
-                fullname: fullname,
-                dob: dob,
-                nationality: nationality,
-                photo: photo,
-                cv: cv
-            };
 
             fetch(url, {
                 method: "POST",
-                headers: headers,
-                body: JSON.stringify(data)
+                body: formData
             })
                 .then((response) => response.json())
                 .then((response) => {
-                    setMsg(response[0].result)
+                    setMsg(response[0])
                 })
                 .catch(err => {
                     console.log(err);
@@ -115,7 +111,8 @@ export default function PersonalInfoForm() {
     return (
         <div className="p-6">
             <h2 className="text-2xl font-bold mb-4">Personal Information</h2>
-            <div className='text-green-500 m-0 p-0 font-semibold text-sm italic'>{msg}</div>
+            <div className='text-green-500 m-0 p-0 font-semibold text-sm italic'>{msg.result}</div>
+            <div className='text-red-500 m-0 p-0 font-semibold text-sm italic'>{msg.error}</div>
             <div className="flex flex-col gap-4">
 
                 {/* Full Name */}
@@ -192,7 +189,7 @@ export default function PersonalInfoForm() {
                 <button
                     onClick={handleSubmit}
                     type="submit"
-                    className="bg-blue-950 text-white py-2 rounded hover:bg-blue-800"
+                    className="bg-blue-950 text-white py-2 rounded hover:bg-blue-800 cursor-pointer"
                 >
                     Submit
                 </button>
